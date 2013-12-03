@@ -13,7 +13,9 @@ namespace MyReactiveUI.StreamingData
         {
             InitializeComponent();
 
+            this.BindCommand(ViewModel, vm => vm.StartRecievingData, v=>v.StartDataFeed);
             this.OneWayBind(ViewModel, vm => vm.TheValue, v => v.TheValue.Text);
+            this.OneWayBind(ViewModel, vm => vm.AllValuesViewModels, v => v.TheValueList.ItemsSource);
         }
 
         public static readonly DependencyProperty ViewModelProperty =

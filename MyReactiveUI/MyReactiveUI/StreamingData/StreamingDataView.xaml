@@ -6,6 +6,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel >
-        <TextBlock x:Name="TheValue" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <StackPanel>
+            <Button x:Name="StartDataFeed" Height="30" Content="Start"/>
+            <TextBlock x:Name="TheValue" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ScrollViewer>
+                <ListBox x:Name="TheValueList"></ListBox>
+            </ScrollViewer>
+        </StackPanel>
     </DockPanel>
 </UserControl>

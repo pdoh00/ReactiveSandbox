@@ -13,23 +13,23 @@ namespace MyReactiveUI.StreamingData
     {
         public StreamingDataViewModel(DataFeed dataFeed)
         {
-            ReactiveData = new ReactiveList<int>();
-            IntegerViewModels = ReactiveData.CreateDerivedCollection(x => x);
-
+            AllValues = new ReactiveList<int>();
+            AllValuesViewModels = AllValues.CreateDerivedCollection(x => x);
+            
             StartRecievingData = new ReactiveCommand();
 
-            dataFeed.GetInfiniteSequence(1000)
-                .ObserveOn(DispatcherScheduler.Current)
+            var s = StartRecievingData.RegisterAsync(x => dataFeed.GetInfiniteSequence(1000))
                 .Subscribe(d =>
                 {
-                    TheValue = d;
+                    TheValue = d; //this works how I expect
+                    //AllValues.Add(d); //this crashes. Why?
                 });
+
         }
 
         public ReactiveCommand StartRecievingData { get; protected set; }
-
-        public ReactiveList<int> ReactiveData { get; protected set; }
-        public IReactiveDerivedList<int> IntegerViewModels { get; protected set; }
+        public ReactiveList<int> AllValues { get; protected set; }
+        public IReactiveDerivedList<int> AllValuesViewModels { get; protected set; }
 
         private int _TheValue;
         public int TheValue
